@@ -1,4 +1,4 @@
-// server.js - Main server file for AWC Blog Backend
+// server.js - Railway-compatible server for AWC Blog Backend
 const express = require('express');
 const Database = require('better-sqlite3');
 const path = require('path');
@@ -24,18 +24,11 @@ const commentLimiter = rateLimit({
 const db = new Database('./blog.db');
 console.log('Connected to SQLite database.');
 initializeDatabase();
-  if (err) {
-    console.error('Error opening database:', err.message);
-  } else {
-    console.log('Connected to SQLite database.');
-    initializeDatabase();
-  }
-});
 
 // Create tables if they don't exist
 function initializeDatabase() {
   // Comments table
-  db.run(`CREATE TABLE IF NOT EXISTS comments (
+  db.exec(`CREATE TABLE IF NOT EXISTS comments (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     post_id TEXT NOT NULL,
     author_name TEXT NOT NULL,
@@ -46,7 +39,7 @@ function initializeDatabase() {
   )`);
 
   // Blog posts table (optional - for future expansion)
-  db.run(`CREATE TABLE IF NOT EXISTS posts (
+  db.exec(`CREATE TABLE IF NOT EXISTS posts (
     id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
     author TEXT NOT NULL,
@@ -69,26 +62,27 @@ function initializeDatabase() {
 app.get('/api/comments/:postId', (req, res) => {
   const { postId } = req.params;
   
-  db.all(
-    `SELECT id, post_id, author_name, content, created_at 
-     FROM comments 
-     WHERE post_id = ? AND status = 'approved' 
-     ORDER BY created_at DESC`,
-    [postId],
-    (err, rows) => {
-      if (err) {
-        console.error('Error fetching comments:', err);
-        res.status(500).json({ error: 'Failed to fetch comments' });
-      } else {
-        // Format the created_at timestamp for display
-        const formattedComments = rows.map(comment => ({
-          ...comment,
-          created_at: formatTimeAgo(new Date(comment.created_at))
-        }));
-        res.json(formattedComments);
-      }
-    }
-  );
+  try {
+    const stmt = db.prepare(`
+      SELECT id, post_id, author_name, content, created_at 
+      FROM comments 
+      WHERE post_id = ? AND status = 'approved' 
+      ORDER BY created_at DESC
+    `);
+    
+    const rows = stmt.all(postId);
+    
+    // Format the created_at timestamp for display
+    const formattedComments = rows.map(comment => ({
+      ...comment,
+      created_at: formatTimeAgo(new Date(comment.created_at))
+    }));
+    
+    res.json(formattedComments);
+  } catch (err) {
+    console.error('Error fetching comments:', err);
+    res.status(500).json({ error: 'Failed to fetch comments' });
+  }
 });
 
 // Add a new comment
@@ -111,69 +105,62 @@ app.post('/api/comments/:postId', commentLimiter, (req, res) => {
     return res.status(400).json({ error: 'Invalid email address' });
   }
 
-  // Insert comment into database
-  db.run(
-    `INSERT INTO comments (post_id, author_name, author_email, content) 
-     VALUES (?, ?, ?, ?)`,
-    [postId, author_name, author_email, content],
-    function(err) {
-      if (err) {
-        console.error('Error adding comment:', err);
-        res.status(500).json({ error: 'Failed to add comment' });
-      } else {
-        // Return the new comment
-        db.get(
-          `SELECT id, post_id, author_name, content, created_at 
-           FROM comments WHERE id = ?`,
-          [this.lastID],
-          (err, row) => {
-            if (err) {
-              res.status(500).json({ error: 'Comment added but failed to retrieve' });
-            } else {
-              res.status(201).json({
-                ...row,
-                created_at: formatTimeAgo(new Date(row.created_at))
-              });
-            }
-          }
-        );
-      }
-    }
-  );
+  try {
+    // Insert comment into database
+    const stmt = db.prepare(`
+      INSERT INTO comments (post_id, author_name, author_email, content) 
+      VALUES (?, ?, ?, ?)
+    `);
+    
+    const result = stmt.run(postId, author_name, author_email, content);
+    
+    // Get the new comment
+    const getStmt = db.prepare(`
+      SELECT id, post_id, author_name, content, created_at 
+      FROM comments WHERE id = ?
+    `);
+    
+    const newComment = getStmt.get(result.lastInsertRowid);
+    
+    res.status(201).json({
+      ...newComment,
+      created_at: formatTimeAgo(new Date(newComment.created_at))
+    });
+  } catch (err) {
+    console.error('Error adding comment:', err);
+    res.status(500).json({ error: 'Failed to add comment' });
+  }
 });
 
 // Get comment count for a post
 app.get('/api/comments/:postId/count', (req, res) => {
   const { postId } = req.params;
   
-  db.get(
-    `SELECT COUNT(*) as count FROM comments WHERE post_id = ? AND status = 'approved'`,
-    [postId],
-    (err, row) => {
-      if (err) {
-        console.error('Error counting comments:', err);
-        res.status(500).json({ error: 'Failed to count comments' });
-      } else {
-        res.json({ count: row.count });
-      }
-    }
-  );
+  try {
+    const stmt = db.prepare(`
+      SELECT COUNT(*) as count 
+      FROM comments 
+      WHERE post_id = ? AND status = 'approved'
+    `);
+    
+    const result = stmt.get(postId);
+    res.json({ count: result.count });
+  } catch (err) {
+    console.error('Error counting comments:', err);
+    res.status(500).json({ error: 'Failed to count comments' });
+  }
 });
 
 // Admin route to get all comments (including pending)
 app.get('/api/admin/comments', (req, res) => {
-  // In a real app, you'd want authentication here
-  db.all(
-    `SELECT * FROM comments ORDER BY created_at DESC`,
-    (err, rows) => {
-      if (err) {
-        console.error('Error fetching all comments:', err);
-        res.status(500).json({ error: 'Failed to fetch comments' });
-      } else {
-        res.json(rows);
-      }
-    }
-  );
+  try {
+    const stmt = db.prepare(`SELECT * FROM comments ORDER BY created_at DESC`);
+    const rows = stmt.all();
+    res.json(rows);
+  } catch (err) {
+    console.error('Error fetching all comments:', err);
+    res.status(500).json({ error: 'Failed to fetch comments' });
+  }
 });
 
 // Update comment status (approve/reject)
@@ -185,40 +172,38 @@ app.patch('/api/admin/comments/:id', (req, res) => {
     return res.status(400).json({ error: 'Invalid status' });
   }
   
-  db.run(
-    `UPDATE comments SET status = ? WHERE id = ?`,
-    [status, id],
-    function(err) {
-      if (err) {
-        console.error('Error updating comment status:', err);
-        res.status(500).json({ error: 'Failed to update comment' });
-      } else if (this.changes === 0) {
-        res.status(404).json({ error: 'Comment not found' });
-      } else {
-        res.json({ message: 'Comment status updated successfully' });
-      }
+  try {
+    const stmt = db.prepare(`UPDATE comments SET status = ? WHERE id = ?`);
+    const result = stmt.run(status, id);
+    
+    if (result.changes === 0) {
+      res.status(404).json({ error: 'Comment not found' });
+    } else {
+      res.json({ message: 'Comment status updated successfully' });
     }
-  );
+  } catch (err) {
+    console.error('Error updating comment status:', err);
+    res.status(500).json({ error: 'Failed to update comment' });
+  }
 });
 
 // Delete comment
 app.delete('/api/admin/comments/:id', (req, res) => {
   const { id } = req.params;
   
-  db.run(
-    `DELETE FROM comments WHERE id = ?`,
-    [id],
-    function(err) {
-      if (err) {
-        console.error('Error deleting comment:', err);
-        res.status(500).json({ error: 'Failed to delete comment' });
-      } else if (this.changes === 0) {
-        res.status(404).json({ error: 'Comment not found' });
-      } else {
-        res.json({ message: 'Comment deleted successfully' });
-      }
+  try {
+    const stmt = db.prepare(`DELETE FROM comments WHERE id = ?`);
+    const result = stmt.run(id);
+    
+    if (result.changes === 0) {
+      res.status(404).json({ error: 'Comment not found' });
+    } else {
+      res.json({ message: 'Comment deleted successfully' });
     }
-  );
+  } catch (err) {
+    console.error('Error deleting comment:', err);
+    res.status(500).json({ error: 'Failed to delete comment' });
+  }
 });
 
 // Utility function to format timestamps
@@ -238,8 +223,9 @@ function formatTimeAgo(date) {
 app.get('/api/health', (req, res) => {
   res.json({ 
     status: 'OK', 
-    message: 'AWC Blog API is running',
-    timestamp: new Date().toISOString()
+    message: 'AWC Blog API is running on Railway',
+    timestamp: new Date().toISOString(),
+    environment: 'production'
   });
 });
 
@@ -289,24 +275,23 @@ app.use((req, res) => {
 
 // Start server
 app.listen(PORT, () => {
-  console.log(`🚀 AWC Blog server is running on http://localhost:${PORT}`);
-  console.log(`📊 API endpoints available at http://localhost:${PORT}/api/`);
-  console.log(`🏠 Blog available at http://localhost:${PORT}`);
-  console.log(`📝 Blog posts available at:`);
-  console.log(`   • http://localhost:${PORT}/ministry-teams`);
-  console.log(`   • http://localhost:${PORT}/prayer-leadership`);
-  console.log(`   • http://localhost:${PORT}/called-to-lead`);
+  console.log(`🚀 AWC Blog server is running on port ${PORT}`);
+  console.log(`📊 API endpoints available`);
+  console.log(`🏠 Blog available at root path`);
+  console.log(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
 
 // Graceful shutdown
 process.on('SIGINT', () => {
   console.log('\n⏹️  Shutting down server...');
-  db.close((err) => {
-    if (err) {
-      console.error('Error closing database:', err.message);
-    } else {
-      console.log('Database connection closed.');
-    }
-    process.exit(0);
-  });
+  db.close();
+  console.log('Database connection closed.');
+  process.exit(0);
+});
+
+process.on('SIGTERM', () => {
+  console.log('\n⏹️  Shutting down server...');
+  db.close();
+  console.log('Database connection closed.');
+  process.exit(0);
 });
