@@ -1,6 +1,6 @@
 // server.js - Main server file for AWC Blog Backend
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
+const Database = require('better-sqlite3');
 const path = require('path');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
@@ -21,7 +21,9 @@ const commentLimiter = rateLimit({
 });
 
 // Initialize SQLite Database
-const db = new sqlite3.Database('./blog.db', (err) => {
+const db = new Database('./blog.db');
+console.log('Connected to SQLite database.');
+initializeDatabase();
   if (err) {
     console.error('Error opening database:', err.message);
   } else {
