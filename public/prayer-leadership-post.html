@@ -1,0 +1,948 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Power of Prayer in Leadership - AWC Blog</title>
+    <meta name="description" content="Discover how prayer becomes the foundation of effective spiritual leadership and transforms your ability to lead with divine wisdom and strength.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <style>
+        /* CSS Custom Properties */
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            --text-light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .font-display { 
+            font-family: 'Playfair Display', serif; 
+        }
+
+        /* Glassmorphism Effects */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
+        }
+
+        .floating { 
+            animation: float 6s ease-in-out infinite; 
+        }
+
+        .morphing-bg {
+            background: linear-gradient(45deg, #0f172a, #1e293b, #334155, #475569);
+            background-size: 400% 400%;
+            animation: morphing 15s ease infinite;
+        }
+
+        @keyframes morphing {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Text Effects */
+        .gradient-text {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 50%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Interactive Elements */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(245, 158, 11, 0.3);
+        }
+
+        .neon-btn {
+            position: relative;
+            background: linear-gradient(45deg, var(--accent), var(--accent-light));
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .neon-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .neon-btn:hover:before { 
+            left: 100%; 
+        }
+
+        .neon-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+        }
+
+        /* Blog Category Badges */
+        .category-spiritual { 
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8); 
+        }
+
+        /* Blog post styles */
+        .blog-content {
+            line-height: 1.8;
+        }
+
+        .blog-content h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f59e0b;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .blog-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fbbf24;
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            color: #d1d5db;
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #f59e0b;
+            padding-left: 1rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #fbbf24;
+            background: rgba(245, 158, 11, 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .blog-content ul, .blog-content ol {
+            margin: 1rem 0 1rem 2rem;
+            color: #d1d5db;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Hero image styles */
+        .hero-image {
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(29, 78, 216, 0.1));
+        }
+
+        /* Prayer animation */
+        @keyframes prayerGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.6); }
+        }
+
+        .prayer-glow {
+            animation: prayerGlow 3s ease-in-out infinite;
+        }
+
+        /* Comment styles */
+        .comment-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .comment-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        }
+
+        ::-webkit-scrollbar-track { 
+            background: var(--secondary); 
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--accent), var(--accent-light));
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="text-white morphing-bg">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full z-50 glass py-4">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center floating">
+                        <i class="fas fa-church text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-xl font-bold font-display gradient-text">AWC</div>
+                        <div class="text-xs text-gray-300 -mt-1">ANOINTED WORSHIP CENTER</div>
+                    </div>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-300 hover:text-amber-400 transition-colors">Home</a>
+                    <a href="events-news.html" class="text-gray-300 hover:text-amber-400 transition-colors">Events & News</a>
+                    <a href="ministries.html" class="text-gray-300 hover:text-amber-400 transition-colors">Ministries</a>
+                    <a href="awc-blog.html" class="text-amber-400">Blog</a>
+                    <a href="awc-gallery.html" class="text-gray-300 hover:text-amber-400 transition-colors">Gallery</a>
+                </div>
+
+                <!-- Back to Blog -->
+                <a href="awc-blog.html" class="neon-btn !px-6 !py-2 !text-sm">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Blog
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-32 pb-20">
+        <div class="max-w-4xl mx-auto px-6">
+            <!-- Post Header -->
+            <article class="glass-card rounded-3xl overflow-hidden">
+                <!-- Hero Image -->
+                <div class="hero-image h-96 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-br from-blue-600/30 via-indigo-600/20 to-purple-600/30"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="w-32 h-32 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full flex items-center justify-center mb-6 mx-auto prayer-glow">
+                                <i class="fas fa-praying-hands text-white text-5xl"></i>
+                            </div>
+                            <div class="text-6xl font-bold font-display opacity-20">PRAYER</div>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-8 left-8 right-8">
+                        <span class="category-spiritual text-white px-4 py-2 rounded-full text-sm font-semibold inline-block mb-4">
+                            Spiritual Growth
+                        </span>
+                        <h1 class="text-4xl md:text-5xl font-bold font-display text-white mb-4">
+                            The Power of Prayer in Leadership
+                        </h1>
+                        <div class="flex items-center text-gray-300">
+                            <div class="flex items-center mr-6">
+                                <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-user text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-amber-400 font-semibold">Pastor Kenneth</div>
+                                    <div class="text-sm">June 26, 2025 • 8 min read</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Post Content -->
+                <div class="p-8 md:p-12">
+                    <div class="blog-content">
+                        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                            In the corridors of power, boardrooms of influence, and sanctuaries of worship, one truth remains constant: the most effective leaders are those who understand that their strength comes not from their own abilities, but from their connection to the Almighty. Prayer is not just a spiritual discipline for leaders—it is the very foundation upon which transformational leadership is built.
+                        </p>
+
+                        <blockquote>
+                            "If my people, who are called by my name, will humble themselves and pray and seek my face and turn from their wicked ways, then I will hear from heaven, and I will forgive their sin and will heal their land." - 2 Chronicles 7:14
+                        </blockquote>
+
+                        <h2>Why Prayer is Essential for Leadership</h2>
+                        <p>
+                            Leadership, at its core, is about influence. But influence without divine guidance can lead to devastating consequences. When we look at the greatest leaders in Scripture—Moses, David, Daniel, Nehemiah—we see individuals who understood that their ability to lead effectively was directly connected to their relationship with God through prayer.
+                        </p>
+
+                        <p>
+                            Prayer does several crucial things for leaders: it humbles us, reminding us that we are stewards, not owners; it connects us to divine wisdom that surpasses human understanding; it provides strength for the enormous burdens of leadership; and it aligns our will with God's purposes.
+                        </p>
+
+                        <h3>The Prayer Life of Biblical Leaders</h3>
+                        <p>
+                            Consider Moses, who spent forty days on Mount Sinai in communion with God. His face literally glowed from being in God's presence. Or Daniel, who prayed three times a day despite the threat of death. These weren't religious formalities—these were leaders who understood that their effectiveness depended entirely on their connection to the source of all wisdom and power.
+                        </p>
+
+                        <p>
+                            David, perhaps the greatest king in Israel's history, was described as "a man after God's own heart." The Psalms reveal a leader who brought everything to God in prayer—his fears, his victories, his failures, his hopes. His leadership was effective because it was grounded in authentic relationship with the Almighty.
+                        </p>
+
+                        <h2>Five Ways Prayer Transforms Leadership</h2>
+
+                        <h3>1. Prayer Provides Divine Perspective</h3>
+                        <p>
+                            Human perspective is limited by our experience, knowledge, and understanding. But God sees the end from the beginning. When leaders pray, they tap into divine perspective that can see beyond current circumstances to ultimate purposes. This prevents short-sighted decisions and enables leaders to make choices that align with God's eternal plan.
+                        </p>
+
+                        <p>
+                            Nehemiah exemplified this when he spent four months in prayer and fasting before approaching the king about rebuilding Jerusalem's walls. That prayer time gave him the perspective, strategy, and favor needed to accomplish what seemed impossible.
+                        </p>
+
+                        <h3>2. Prayer Develops Character and Integrity</h3>
+                        <p>
+                            Regular communion with a holy God inevitably shapes character. You cannot spend time in the presence of absolute purity without being changed. Prayer exposes our motives, reveals our weaknesses, and challenges us to live with integrity. Leaders who pray regularly find themselves becoming more like Christ in their character, which is the foundation of authentic leadership.
+                        </p>
+
+                        <h3>3. Prayer Provides Supernatural Strength</h3>
+                        <p>
+                            Leadership is exhausting. The weight of responsibility, the pressure of decisions, the burden of caring for others—it can overwhelm even the strongest individuals. But prayer connects us to the inexhaustible strength of God. As Isaiah 40:31 promises, "Those who hope in the Lord will renew their strength. They will soar on wings like eagles; they will run and not grow weary, they will walk and not be faint."
+                        </p>
+
+                        <h3>4. Prayer Brings Wisdom for Complex Decisions</h3>
+                        <p>
+                            James 1:5 tells us, "If any of you lacks wisdom, you should ask God, who gives generously to all without finding fault, and it will be given to you." Leaders face complex decisions daily—decisions that affect not just themselves but countless others. Prayer opens the channel for divine wisdom that can navigate the most challenging situations.
+                        </p>
+
+                        <p>
+                            Solomon's request for wisdom to lead Israel pleased God so much that He gave him not only wisdom but also riches and honor. Leaders who prioritize seeking God's wisdom through prayer find themselves making decisions that bear good fruit for generations.
+                        </p>
+
+                        <h3>5. Prayer Builds Authentic Relationships</h3>
+                        <p>
+                            Prayer for those you lead transforms your heart toward them. It's difficult to harbor resentment, practice favoritism, or treat people poorly when you're regularly bringing them before God in prayer. Intercession develops a shepherd's heart in leaders, causing them to genuinely care for the welfare of those under their influence.
+                        </p>
+
+                        <blockquote>
+                            "I urge, then, first of all, that petitions, prayers, intercession and thanksgiving be made for all people—for kings and all those in authority, that we may live peaceful and quiet lives in all godliness and holiness." - 1 Timothy 2:1-2
+                        </blockquote>
+
+                        <h2>Practical Ways to Integrate Prayer into Leadership</h2>
+
+                        <h3>Start Your Day in Prayer</h3>
+                        <p>
+                            Before checking emails, reviewing schedules, or diving into the day's challenges, spend time with God. This sets the tone for the entire day and ensures that your decisions are filtered through divine perspective rather than human urgency.
+                        </p>
+
+                        <h3>Pray Before Major Decisions</h3>
+                        <p>
+                            Make it a practice never to make significant decisions without first seeking God's guidance through prayer. This doesn't mean long delays, but it does mean taking time to present the situation to God and listen for His direction.
+                        </p>
+
+                        <h3>Intercede for Those You Lead</h3>
+                        <p>
+                            Regularly pray for the people under your influence. Pray for their spiritual growth, their families, their challenges, and their success. This practice will transform your leadership from management to true shepherding.
+                        </p>
+
+                        <h3>Include Prayer in Team Meetings</h3>
+                        <p>
+                            Open meetings with prayer, acknowledging God's presence and seeking His guidance for the decisions to be made. This sets a spiritual foundation for your work together and reminds everyone of the higher purpose behind your efforts.
+                        </p>
+
+                        <h3>Create Space for Listening Prayer</h3>
+                        <p>
+                            Prayer is not just talking to God; it's also listening to Him. Create regular times of silence where you can hear God's voice speaking to your heart about leadership decisions, direction, and priorities.
+                        </p>
+
+                        <h2>Overcoming Common Prayer Obstacles for Leaders</h2>
+
+                        <h3>"I Don't Have Time"</h3>
+                        <p>
+                            This is the most common excuse, but it reveals a fundamental misunderstanding. Prayer doesn't take time away from productivity—it multiplies the effectiveness of the time you have. Martin Luther reportedly said, "I have so much to do that I shall spend the first three hours in prayer."
+                        </p>
+
+                        <h3>"I Don't Know How to Pray as a Leader"</h3>
+                        <p>
+                            Start simple. Thank God for the privilege of leadership. Ask for wisdom for specific decisions. Pray for your team members by name. Request strength for challenges you're facing. God is more interested in your heart than your eloquence.
+                        </p>
+
+                        <h3>"I Feel Like a Hypocrite"</h3>
+                        <p>
+                            Leadership doesn't require perfection—it requires authenticity. Come to God honestly, acknowledging your failures and weaknesses. This humility actually makes you a better leader because it keeps you dependent on God rather than your own strength.
+                        </p>
+
+                        <h2>The Multiplication Effect of Praying Leaders</h2>
+                        <p>
+                            When leaders pray, the impact extends far beyond their own lives. Praying leaders create a culture of dependence on God within their organizations. They model spiritual priorities for their teams. They make decisions that align with eternal values rather than temporal pressures.
+                        </p>
+
+                        <p>
+                            Moreover, praying leaders often find that their teams become more cohesive, their organizations more resilient, and their impact more lasting. This isn't because prayer is a magical formula for success, but because prayer aligns human efforts with divine purposes.
+                        </p>
+
+                        <h2>A Challenge to Every Leader</h2>
+                        <p>
+                            Regardless of your current leadership role—whether you're leading a family, a team, a department, an organization, or a nation—I challenge you to make prayer the foundation of your leadership approach. Not as an add-on or afterthought, but as the starting point for every decision, every strategy, and every interaction.
+                        </p>
+
+                        <p>
+                            Begin each day acknowledging that your ability to lead comes from God. Seek His wisdom for the decisions you face. Pray for those you have the privilege to influence. And watch as God transforms not only your leadership but also the lives of those you serve.
+                        </p>
+
+                        <blockquote>
+                            "Call to me and I will answer you and tell you great and unsearchable things you do not know." - Jeremiah 33:3
+                        </blockquote>
+
+                        <p>
+                            The invitation is clear: God wants to partner with you in your leadership journey. Through prayer, you can access divine wisdom, supernatural strength, and eternal perspective. The question is not whether God is willing to help—the question is whether you're willing to ask.
+                        </p>
+
+                        <p>
+                            Your leadership legacy will not be determined by your natural abilities, your education, or your experience alone. It will be shaped by your willingness to lead from your knees, seeking first the Kingdom of God and His righteousness. Everything else, as Jesus promised, will be added unto you.
+                        </p>
+                    </div>
+
+                    <!-- Author Bio -->
+                    <div class="border-t border-white/20 mt-8 pt-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center">
+                                <i class="fas fa-user text-white text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-amber-400 mb-2">Pastor Kenneth</h4>
+                                <p class="text-gray-300 leading-relaxed">
+                                    Pastor Kenneth has been serving in ministry for over 15 years, leading with a commitment to prayer-centered leadership. He believes that the most powerful leadership flows from a life of intimate communion with God and has witnessed countless transformations through the power of persistent prayer.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Post Actions -->
+                    <div class="border-t border-white/20 mt-8 pt-8">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-6">
+                                <button class="flex items-center text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart mr-2"></i>
+                                    <span>18 Likes</span>
+                                </button>
+                                <button class="flex items-center text-gray-400 hover:text-blue-400 transition-colors">
+                                    <i class="fas fa-share mr-2"></i>
+                                    <span>Share</span>
+                                </button>
+                                <button class="flex items-center text-gray-400 hover:text-green-400 transition-colors">
+                                    <i class="fas fa-bookmark mr-2"></i>
+                                    <span>Save</span>
+                                </button>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <span class="text-gray-400 text-sm">Share this post:</span>
+                                <button class="text-gray-400 hover:text-blue-600 transition-colors">
+                                    <i class="fab fa-facebook-f"></i>
+                                </button>
+                                <button class="text-gray-400 hover:text-blue-400 transition-colors">
+                                    <i class="fab fa-twitter"></i>
+                                </button>
+                                <button class="text-gray-400 hover:text-pink-600 transition-colors">
+                                    <i class="fab fa-instagram"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="border-t border-white/20 mt-8 pt-8">
+                        <h3 class="text-2xl font-bold text-amber-400 mb-6" id="commentsHeader">Comments (3)</h3>
+                        
+                        <div id="commentsContainer">
+                            <!-- Comment 1 -->
+                            <div class="comment-item">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white font-semibold text-sm">RJ</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="font-semibold text-white">Robert Johnson</span>
+                                            <span class="text-gray-400 text-sm">4 hours ago</span>
+                                        </div>
+                                        <p class="text-gray-300">
+                                            This is exactly what I needed to read today. As a team leader at my company, I've been struggling with some difficult decisions. Your reminder about starting each day in prayer really convicted me. Thank you, Pastor Kenneth!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comment 2 -->
+                            <div class="comment-item">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-green-400 to-teal-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white font-semibold text-sm">LM</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="font-semibold text-white">Linda Martinez</span>
+                                            <span class="text-gray-400 text-sm">6 hours ago</span>
+                                        </div>
+                                        <p class="text-gray-300">
+                                            The section about praying for those you lead really touched my heart. I lead our women's ministry and realize I haven't been consistently interceding for the ladies in our group. Starting today, that changes!
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comment 3 -->
+                            <div class="comment-item">
+                                <div class="flex items-start space-x-4">
+                                    <div class="w-10 h-10 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full flex items-center justify-center">
+                                        <span class="text-white font-semibold text-sm">MT</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <div class="flex items-center space-x-2 mb-2">
+                                            <span class="font-semibold text-white">Michael Thompson</span>
+                                            <span class="text-gray-400 text-sm">1 day ago</span>
+                                        </div>
+                                        <p class="text-gray-300">
+                                            Powerful message! The example of Nehemiah spending four months in prayer before approaching the king really stood out to me. It's a reminder that prayer isn't just a quick blessing before we act—it's strategic preparation for effective leadership.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Add Comment Form -->
+                        <div class="mt-8">
+                            <h4 class="text-lg font-semibold text-white mb-4">Leave a Comment</h4>
+                            <form id="commentForm" class="space-y-4">
+                                <div class="grid md:grid-cols-2 gap-4">
+                                    <input type="text" id="commentName" placeholder="Your Name" required
+                                           class="px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-amber-400">
+                                    <input type="email" id="commentEmail" placeholder="Your Email" required
+                                           class="px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-amber-400">
+                                </div>
+                                <textarea rows="4" id="commentText" placeholder="Share your thoughts on prayer and leadership..." required maxlength="1000"
+                                          class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-amber-400"></textarea>
+                                <button type="submit" class="neon-btn">
+                                    <i class="fas fa-comment mr-2"></i>Post Comment
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Related Posts -->
+            <div class="mt-16">
+                <h3 class="text-3xl font-bold text-amber-400 mb-8 text-center">Related Posts</h3>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Related Post 1 -->
+                    <div class="glass-card rounded-2xl p-6 hover-lift">
+                        <div class="h-32 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg mb-4 flex items-center justify-center">
+                            <i class="fas fa-crown text-white text-3xl"></i>
+                        </div>
+                        <span class="category-spiritual text-white px-3 py-1 rounded-full text-sm font-semibold">Ministry & Leadership</span>
+                        <h4 class="text-xl font-bold text-white mt-4 mb-2">Called to Lead: Embracing Your Divine Assignment</h4>
+                        <p class="text-gray-300 text-sm mb-4">Discover how God calls ordinary people to extraordinary leadership and learn to embrace your divine assignment...</p>
+                        <a href="#" class="text-amber-400 hover:underline text-sm">Read More →</a>
+                    </div>
+
+                    <!-- Related Post 2 -->
+                    <div class="glass-card rounded-2xl p-6 hover-lift">
+                        <div class="h-32 bg-gradient-to-br from-green-400 to-teal-500 rounded-lg mb-4 flex items-center justify-center">
+                            <i class="fas fa-users text-white text-3xl"></i>
+                        </div>
+                        <span class="category-spiritual text-white px-3 py-1 rounded-full text-sm font-semibold">Community</span>
+                        <h4 class="text-xl font-bold text-white mt-4 mb-2">Building Strong Teams in Ministry</h4>
+                        <p class="text-gray-300 text-sm mb-4">Learn the keys to developing and leading effective ministry teams through prayer and purpose...</p>
+                        <a href="#" class="text-amber-400 hover:underline text-sm">Read More →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass py-16 mt-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12">
+                <!-- Logo & Mission -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mr-4 floating">
+                            <i class="fas fa-church text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold font-display gradient-text">ANOINTED WORSHIP CENTER</div>
+                            <div class="text-amber-400 text-sm">Where Everyone is Someone</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Empowering leaders to lead with prayer, purpose, and the power of God through spiritual growth and biblical wisdom.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold font-display mb-6 text-amber-400">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-300 hover:text-amber-400 transition-colors">Home</a></li>
+                        <li><a href="events-news.html" class="text-gray-300 hover:text-amber-400 transition-colors">Events & News</a></li>
+                        <li><a href="ministries.html" class="text-gray-300 hover:text-amber-400 transition-colors">Ministries</a></li>
+                        <li><a href="awc-blog.html" class="text-gray-300 hover:text-amber-400 transition-colors">Blog</a></li>
+                        <li><a href="awc-gallery.html" class="text-gray-300 hover:text-amber-400 transition-colors">Gallery</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold font-display mb-6 text-amber-400">Connect</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-amber-400 mr-3"></i>
+                            <span>556 Trapelo Rd Belmont, MA</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-amber-400 mr-3"></i>
+                            <span>(508) 933-1804</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-amber-400 mr-3"></i>
+                            <span>info@anointedworshipcenter.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/20 mt-12 pt-8 text-center">
+                <p class="text-gray-400">
+                    &copy; 2025 Anointed Worship Center - All rights reserved. Leading through prayer, serving with purpose.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:3000/api';
+        const POST_ID = 'prayer-leadership-post';
+
+        // Load comments when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadComments();
+        });
+
+        // Load comments from API
+        async function loadComments() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/comments/${POST_ID}`);
+                if (response.ok) {
+                    const comments = await response.json();
+                    renderComments(comments);
+                } else {
+                    console.log('No comments found or API not available, using static comments');
+                }
+            } catch (error) {
+                console.log('API not available, using static comments');
+            }
+        }
+
+        // Render comments
+        function renderComments(comments) {
+            const container = document.getElementById('commentsContainer');
+            const header = document.getElementById('commentsHeader');
+            
+            if (comments.length === 0) {
+                container.innerHTML = '<div class="text-gray-400 mb-4">No comments yet. Be the first to share your thoughts!</div>';
+                header.textContent = 'Comments (0)';
+                return;
+            }
+
+            let html = '';
+            comments.forEach(comment => {
+                const initials = comment.author_name.split(' ').map(n => n[0]).join('').toUpperCase();
+                const colors = ['from-blue-400 to-purple-500', 'from-green-400 to-teal-500', 'from-purple-400 to-pink-500', 'from-amber-400 to-orange-500', 'from-red-400 to-pink-500'];
+                const colorClass = colors[Math.floor(Math.random() * colors.length)];
+                
+                html += `
+                    <div class="comment-item">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-10 h-10 bg-gradient-to-br ${colorClass} rounded-full flex items-center justify-center">
+                                <span class="text-white font-semibold text-sm">${initials}</span>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <span class="font-semibold text-white">${comment.author_name}</span>
+                                    <span class="text-gray-400 text-sm">${comment.created_at}</span>
+                                </div>
+                                <p class="text-gray-300">${comment.content}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+            header.textContent = `Comments (${comments.length})`;
+        }
+
+        // Handle comment form submission
+        document.getElementById('commentForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('commentName').value.trim();
+            const email = document.getElementById('commentEmail').value.trim();
+            const text = document.getElementById('commentText').value.trim();
+            
+            if (!name || !email || !text) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/comments/${POST_ID}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        author_name: name,
+                        author_email: email,
+                        content: text
+                    })
+                });
+                
+                if (response.ok) {
+                    // Reset form
+                    this.reset();
+                    
+                    // Reload comments
+                    loadComments();
+                    
+                    // Show success message
+                    const successMsg = document.createElement('div');
+                    successMsg.className = 'text-green-400 text-sm mt-2';
+                    successMsg.textContent = 'Comment posted successfully!';
+                    this.appendChild(successMsg);
+                    
+                    setTimeout(() => successMsg.remove(), 3000);
+                } else {
+                    const error = await response.json();
+                    alert('Error posting comment: ' + error.error);
+                }
+            } catch (error) {
+                // Fallback to local storage if API not available
+                const comments = JSON.parse(localStorage.getItem(`comments_${POST_ID}`) || '[]');
+                const newComment = {
+                    author_name: name,
+                    content: text,
+                    created_at: 'Just now'
+                };
+                comments.unshift(newComment);
+                localStorage.setItem(`comments_${POST_ID}`, JSON.stringify(comments));
+                
+                // Render updated comments
+                renderComments(comments);
+                
+                // Reset form
+                this.reset();
+                
+                // Show success message
+                const successMsg = document.createElement('div');
+                successMsg.className = 'text-green-400 text-sm mt-2';
+                successMsg.textContent = 'Comment posted successfully!';
+                this.appendChild(successMsg);
+                
+                setTimeout(() => successMsg.remove(), 3000);
+            }
+        });
+
+        // Like button functionality
+        const likeButton = document.querySelector('.fa-heart')?.closest('button');
+        if (likeButton) {
+            likeButton.addEventListener('click', function() {
+                const heartIcon = this.querySelector('.fa-heart');
+                const likeCount = this.querySelector('span');
+                
+                if (heartIcon && likeCount) {
+                    if (heartIcon.classList.contains('fas')) {
+                        heartIcon.classList.remove('fas');
+                        heartIcon.classList.add('far');
+                        this.classList.remove('text-red-400');
+                        this.classList.add('text-gray-400');
+                        likeCount.textContent = '17 Likes';
+                    } else {
+                        heartIcon.classList.remove('far');
+                        heartIcon.classList.add('fas');
+                        this.classList.remove('text-gray-400');
+                        this.classList.add('text-red-400');
+                        likeCount.textContent = '18 Likes';
+                    }
+                }
+            });
+        }
+
+        // Share functionality
+        const shareButton = document.querySelector('.fa-share')?.closest('button');
+        if (shareButton) {
+            shareButton.addEventListener('click', function() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: 'The Power of Prayer in Leadership',
+                        text: 'Discover how prayer becomes the foundation of effective spiritual leadership...',
+                        url: window.location.href
+                    });
+                } else {
+                    // Fallback: copy URL to clipboard
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        alert('Link copied to clipboard!');
+                    });
+                }
+            });
+        }
+
+        // Bookmark functionality
+        const bookmarkButton = document.querySelector('.fa-bookmark')?.closest('button');
+        if (bookmarkButton) {
+            bookmarkButton.addEventListener('click', function() {
+                const bookmarkIcon = this.querySelector('.fa-bookmark');
+                const bookmarkText = this.querySelector('span');
+                
+                if (bookmarkIcon && bookmarkText) {
+                    if (bookmarkIcon.classList.contains('fas')) {
+                        bookmarkIcon.classList.remove('fas');
+                        bookmarkIcon.classList.add('far');
+                        this.classList.remove('text-yellow-400');
+                        this.classList.add('text-gray-400');
+                        bookmarkText.textContent = 'Save';
+                    } else {
+                        bookmarkIcon.classList.remove('far');
+                        bookmarkIcon.classList.add('fas');
+                        this.classList.remove('text-gray-400');
+                        this.classList.add('text-yellow-400');
+                        bookmarkText.textContent = 'Saved';
+                    }
+                }
+            });
+        }
+
+        // Social media share buttons
+        const facebookButton = document.querySelector('.fab.fa-facebook-f');
+        if (facebookButton) {
+            facebookButton.addEventListener('click', function() {
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent('The Power of Prayer in Leadership - AWC Blog');
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+            });
+        }
+
+        const twitterButton = document.querySelector('.fab.fa-twitter');
+        if (twitterButton) {
+            twitterButton.addEventListener('click', function() {
+                const url = encodeURIComponent(window.location.href);
+                const text = encodeURIComponent('The Power of Prayer in Leadership - Discover how prayer becomes the foundation of effective spiritual leadership @AnointedWorship');
+                window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank', 'width=600,height=400');
+            });
+        }
+
+        const instagramButton = document.querySelector('.fab.fa-instagram');
+        if (instagramButton) {
+            instagramButton.addEventListener('click', function() {
+                // Instagram doesn't support direct sharing, so copy URL
+                navigator.clipboard.writeText(window.location.href).then(() => {
+                    alert('Link copied to clipboard! You can now paste it in your Instagram post or story.');
+                });
+            });
+        }
+
+        // Reading progress indicator
+        window.addEventListener('scroll', function() {
+            const article = document.querySelector('article');
+            const articleHeight = article.offsetHeight;
+            const articleTop = article.offsetTop;
+            const windowHeight = window.innerHeight;
+            const scrollTop = window.pageYOffset;
+            
+            const progress = Math.min(100, Math.max(0, 
+                ((scrollTop - articleTop + windowHeight) / articleHeight) * 100
+            ));
+            
+            // Create progress bar if it doesn't exist
+            let progressBar = document.querySelector('.reading-progress');
+            if (!progressBar) {
+                progressBar = document.createElement('div');
+                progressBar.className = 'reading-progress';
+                progressBar.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 0%;
+                    height: 4px;
+                    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+                    z-index: 9999;
+                    transition: width 0.1s ease;
+                `;
+                document.body.appendChild(progressBar);
+            }
+            
+            progressBar.style.width = progress + '%';
+        });
+
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+                        

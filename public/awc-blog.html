@@ -1,0 +1,1095 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Anointed Worship Center</title>
+    <meta name="description" content="Spiritual insights, testimonies, and encouraging words from Anointed Worship Center - Where Everyone is Someone">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Quill WYSIWYG Editor -->
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    
+    <style>
+        /* CSS Custom Properties */
+        :root {
+            --primary: #0f172a;
+            --secondary: #1e293b;
+            --accent: #f59e0b;
+            --accent-light: #fbbf24;
+            --text-light: #f8fafc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .font-display { 
+            font-family: 'Playfair Display', serif; 
+        }
+
+        /* Glassmorphism Effects */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-height: 95vh !important;
+            overflow-y: auto !important;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            33% { transform: translateY(-10px) rotate(1deg); }
+            66% { transform: translateY(5px) rotate(-1deg); }
+        }
+
+        .floating { 
+            animation: float 6s ease-in-out infinite; 
+        }
+
+        .morphing-bg {
+            background: linear-gradient(45deg, #0f172a, #1e293b, #334155, #475569);
+            background-size: 400% 400%;
+            animation: morphing 15s ease infinite;
+        }
+
+        @keyframes morphing {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Text Effects */
+        .gradient-text {
+            background: linear-gradient(135deg, #f59e0b 0%, #f97316 50%, #ef4444 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Interactive Elements */
+        .hover-lift {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hover-lift:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(245, 158, 11, 0.3);
+        }
+
+        .neon-btn {
+            position: relative;
+            background: linear-gradient(45deg, var(--accent), var(--accent-light));
+            border: none;
+            border-radius: 50px;
+            padding: 1rem 2rem;
+            color: white;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+            cursor: pointer;
+        }
+
+        .neon-btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .neon-btn:hover:before { 
+            left: 100%; 
+        }
+
+        .neon-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.6);
+        }
+
+        /* Blog Category Badges */
+        .category-spiritual { background: linear-gradient(45deg, #f59e0b, #f97316); }
+        .category-testimony { background: linear-gradient(45deg, #10b981, #059669); }
+        .category-teaching { background: linear-gradient(45deg, #3b82f6, #1d4ed8); }
+        .category-community { background: linear-gradient(45deg, #8b5cf6, #7c3aed); }
+        .category-ministry { background: linear-gradient(45deg, #ef4444, #dc2626); }
+
+        /* Blog post styles */
+        .blog-content {
+            line-height: 1.8;
+        }
+
+        .blog-content h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #f59e0b;
+            margin: 2rem 0 1rem 0;
+        }
+
+        .blog-content h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #fbbf24;
+            margin: 1.5rem 0 0.75rem 0;
+        }
+
+        .blog-content p {
+            margin-bottom: 1.5rem;
+            color: #d1d5db;
+        }
+
+        .blog-content blockquote {
+            border-left: 4px solid #f59e0b;
+            padding-left: 1rem;
+            margin: 2rem 0;
+            font-style: italic;
+            color: #fbbf24;
+            background: rgba(245, 158, 11, 0.1);
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .blog-content ul, .blog-content ol {
+            margin: 1rem 0 1rem 2rem;
+            color: #d1d5db;
+        }
+
+        .blog-content li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Author styles */
+        .author-bio {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 3rem;
+            padding-top: 2rem;
+        }
+
+        /* Comment styles */
+        .comment-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .comment-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        /* Search styles */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-overlay.active {
+            display: flex;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        }
+
+        ::-webkit-scrollbar-track { 
+            background: var(--secondary); 
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--accent), var(--accent-light));
+            border-radius: 4px;
+        }
+
+        /* Featured post styles */
+        .featured-post {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(249, 115, 22, 0.1));
+        }
+
+        .featured-post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #f59e0b, #f97316, #ef4444);
+        }
+
+        /* Pagination styles */
+        .pagination-btn {
+            transition: all 0.3s ease;
+        }
+
+        .pagination-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(245, 158, 11, 0.3);
+        }
+
+        .pagination-btn.active {
+            background: linear-gradient(45deg, var(--accent), var(--accent-light));
+            color: white;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .blog-row {
+                flex-direction: column;
+            }
+            .blog-image {
+                max-width: 100%;
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+        @media (min-width: 1025px) {
+            .blog-row {
+                flex-direction: row;
+            }
+            .blog-image {
+                max-width: 260px;
+                min-width: 180px;
+                margin-left: 2rem;
+                margin-top: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .blog-row {
+                flex-direction: column;
+            }
+            .blog-image {
+                max-width: 100%;
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+            .blog-content-col {
+                padding-right: 0;
+            }
+        }
+
+        /* Quill WYSIWYG Editor */
+        .ql-toolbar.ql-snow { background: #222; border-radius: 0.5rem 0.5rem 0 0; }
+        .ql-container.ql-snow { background: #181e29; color: #fff; border-radius: 0 0 0.5rem 0.5rem; min-height: 120px; }
+        .ql-editor { color: #fff; }
+
+        #postModalContent {
+            max-height: 90vh !important;
+            overflow-y: auto !important;
+        }
+    </style>
+</head>
+
+<body class="text-white morphing-bg">
+    <!-- Navigation Bar -->
+    <nav class="fixed top-0 w-full z-50 glass py-4">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center floating">
+                        <i class="fas fa-church text-white text-xl"></i>
+                    </div>
+                    <div>
+                        <div class="text-xl font-bold font-display gradient-text">AWC</div>
+                        <div class="text-xs text-gray-300 -mt-1">ANOINTED WORSHIP CENTER</div>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <div class="hidden md:flex items-center space-x-6">
+                    <a href="index.html" class="text-gray-300 hover:text-amber-400 transition-colors">Home</a>
+                    <a href="events-news.html" class="text-gray-300 hover:text-amber-400 transition-colors">Events & News</a>
+                    <a href="ministries.html" class="text-gray-300 hover:text-amber-400 transition-colors">Ministries</a>
+                    <a href="awc-gallery.html" class="text-gray-300 hover:text-amber-400 transition-colors">Gallery</a>
+                    <button onclick="openSearch()" class="text-amber-400 hover:text-amber-300 transition-colors">
+                        <i class="fas fa-search mr-2"></i>Search Blog
+                    </button>
+                </div>
+
+                <!-- Hamburger Icon for Mobile -->
+                <button id="mobileMenuBtn" class="md:hidden flex items-center text-amber-400 focus:outline-none text-3xl" aria-label="Open menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Back to Main Site -->
+                <a href="index.html" class="neon-btn !px-6 !py-2 !text-sm hidden md:inline-flex">
+                    <i class="fas fa-home mr-2"></i>Back to Home
+                </a>
+            </div>
+        </div>
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobileMenu" class="md:hidden fixed top-0 left-0 w-full bg-slate-900/95 z-50 shadow-xl transition-all duration-300 ease-in-out" style="display:none;">
+            <div class="flex justify-between items-center px-6 py-4 border-b border-white/10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center floating">
+                        <i class="fas fa-church text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold font-display gradient-text">AWC</div>
+                        <div class="text-xs text-gray-300 -mt-1">ANOINTED WORSHIP CENTER</div>
+                    </div>
+                </div>
+                <button id="closeMobileMenu" class="text-gray-400 hover:text-amber-400 text-3xl focus:outline-none" aria-label="Close menu"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="flex flex-col space-y-2 px-6 py-6">
+                <a href="index.html" class="text-gray-200 hover:text-amber-400 text-lg py-2 border-b border-white/10">Home</a>
+                <a href="events-news.html" class="text-gray-200 hover:text-amber-400 text-lg py-2 border-b border-white/10">Events & News</a>
+                <a href="ministries.html" class="text-gray-200 hover:text-amber-400 text-lg py-2 border-b border-white/10">Ministries</a>
+                <a href="awc-gallery.html" class="text-gray-200 hover:text-amber-400 text-lg py-2 border-b border-white/10">Gallery</a>
+                <button onclick="openSearch();closeMobileMenu()" class="text-amber-400 hover:text-amber-300 text-lg py-2 text-left"><i class="fas fa-search mr-2"></i>Search Blog</button>
+                <a href="index.html" class="neon-btn !px-6 !py-2 !text-sm mt-4"><i class="fas fa-home mr-2"></i>Back to Home</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Overlay -->
+    <div id="searchOverlay" class="search-overlay">
+        <div class="glass-card rounded-3xl p-8 max-w-2xl w-full mx-4">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-amber-400">Search Blog</h3>
+                <button onclick="closeSearch()" class="text-gray-400 hover:text-white">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="relative">
+                <input type="text" id="searchInput" placeholder="Search for articles, topics, or keywords..." 
+                       class="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-amber-400 pr-12">
+                <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-amber-400">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            <div class="mt-6">
+                <p class="text-gray-400 text-sm mb-4">Popular searches:</p>
+                <div class="flex flex-wrap gap-2">
+                    <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Prayer</button>
+                    <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Faith</button>
+                    <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Testimony</button>
+                    <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Community</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <!-- Page Header -->
+            <div class="text-center mb-16">
+                <h1 class="text-6xl md:text-7xl font-bold font-display mb-8 gradient-text">Blog</h1>
+                <p class="text-2xl text-gray-300 max-w-4xl mx-auto">
+                    Spiritual insights, encouraging words, and stories of faith from our church family
+                </p>
+            </div>
+
+            <!-- Featured Post -->
+            <div class="featured-post glass-card rounded-3xl overflow-hidden mb-16 hover-lift">
+                <div class="grid lg:grid-cols-2 gap-0">
+                    <div class="h-64 lg:h-auto bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 flex items-center justify-center relative">
+                        <div class="absolute inset-0 bg-black/30"></div>
+                        <div class="relative text-center text-white z-10">
+                            <i class="fas fa-star text-6xl mb-4 opacity-80"></i>
+                            <div class="text-2xl font-bold">FEATURED POST</div>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="category-spiritual text-white px-4 py-1 rounded-full text-sm font-semibold">Spiritual Growth</span>
+                            <span class="text-gray-400 text-sm">June 20, 2025</span>
+                        </div>
+                        <h2 class="text-3xl font-bold font-display mb-4 text-white">Walking in Divine Authority: Understanding Your Identity in Christ</h2>
+                        <p class="text-gray-300 text-lg mb-6 leading-relaxed">
+                            Discover the incredible truth about who you are in Christ and learn to walk in the authority that God has given you as His beloved child. This foundational understanding will transform how you approach every area of your life.
+                        </p>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-user text-white text-sm"></i>
+                                </div>
+                                <div>
+                                    <div class="text-amber-400 font-semibold">Pastor Kenneth</div>
+                                    <div class="text-gray-400 text-sm">5 min read</div>
+                                </div>
+                            </div>
+                            <button onclick="window.location.href='awc-blog-post.html'" class="neon-btn !px-6 !py-2">Read More</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Blog Content Area -->
+            <div class="grid lg:grid-cols-3 gap-12">
+                <!-- Main Blog Feed -->
+                <div class="lg:col-span-2 space-y-8">
+                    <!-- Category Filter -->
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <button onclick="filterPosts('all')" class="category-filter active glass-card px-4 py-2 rounded-full text-amber-400 border border-amber-400 transition-all">
+                            All Posts
+                        </button>
+                        <button onclick="filterPosts('spiritual')" class="category-filter glass-card px-4 py-2 rounded-full text-gray-300 border border-gray-600 hover:border-amber-400 hover:text-amber-400 transition-all">
+                            Spiritual Growth
+                        </button>
+                        <button onclick="filterPosts('testimony')" class="category-filter glass-card px-4 py-2 rounded-full text-gray-300 border border-gray-600 hover:border-amber-400 hover:text-amber-400 transition-all">
+                            Testimonies
+                        </button>
+                        <button onclick="filterPosts('teaching')" class="category-filter glass-card px-4 py-2 rounded-full text-gray-300 border border-gray-600 hover:border-amber-400 hover:text-amber-400 transition-all">
+                            Bible Teaching
+                        </button>
+                        <button onclick="filterPosts('community')" class="category-filter glass-card px-4 py-2 rounded-full text-gray-300 border border-gray-600 hover:border-amber-400 hover:text-amber-400 transition-all">
+                            Community
+                        </button>
+                    </div>
+
+                    <!-- Blog Posts Grid -->
+                    <div class="space-y-8" id="blogPosts">
+                        <!-- Blog posts will be loaded here by JavaScript -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <div class="flex justify-center mt-12" id="paginationContainer">
+                        <!-- Pagination controls will be dynamically rendered here by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="sidebar space-y-8">
+                    <!-- About the Blog -->
+                    <div class="glass-card rounded-2xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-amber-400">About Our Blog</h3>
+                        <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                            Welcome to the Anointed Worship Center blog, where we share spiritual insights, testimonies, and encouragement to help you grow in your faith journey.
+                        </p>
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mr-3">
+                                <i class="fas fa-church text-white text-sm"></i>
+                            </div>
+                            <div>
+                                <div class="text-white font-semibold text-sm">AWC Blog Team</div>
+                                <div class="text-gray-400 text-xs">Sharing God's love daily</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Posts -->
+                    <div class="glass-card rounded-2xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-amber-400">Recent Posts</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-start space-x-3">
+                                <div class="w-16 h-12 bg-gradient-to-br from-amber-400 to-orange-500 rounded-lg flex-shrink-0"></div>
+                                <div>
+                                    <h4 class="text-white text-sm font-semibold mb-1 hover:text-amber-400 cursor-pointer">Finding Peace in Difficult Times</h4>
+                                    <p class="text-gray-400 text-xs">June 5, 2025</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-16 h-12 bg-gradient-to-br from-blue-400 to-purple-500 rounded-lg flex-shrink-0"></div>
+                                <div>
+                                    <h4 class="text-white text-sm font-semibold mb-1 hover:text-amber-400 cursor-pointer">The Joy of Serving Others</h4>
+                                    <p class="text-gray-400 text-xs">June 2, 2025</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start space-x-3">
+                                <div class="w-16 h-12 bg-gradient-to-br from-green-400 to-teal-500 rounded-lg flex-shrink-0"></div>
+                                <div>
+                                    <h4 class="text-white text-sm font-semibold mb-1 hover:text-amber-400 cursor-pointer">Building Strong Relationships</h4>
+                                    <p class="text-gray-400 text-xs">May 30, 2025</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Popular Topics -->
+                    <div class="glass-card rounded-2xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-amber-400">Popular Topics</h3>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Prayer</button>
+                            <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Faith</button>
+                            <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Worship</button>
+                            <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Community</button>
+                            <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Healing</button>
+                            <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Hope</button>
+                            <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Love</button>
+                            <button class="px-3 py-1 bg-white/10 rounded-full text-sm text-gray-300 hover:bg-amber-400 hover:text-black transition-all">Growth</button>
+                        </div>
+                    </div>
+
+                    <!-- Newsletter Signup -->
+                    <div class="glass-card rounded-2xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-amber-400">Stay Connected</h3>
+                        <p class="text-gray-300 text-sm mb-4">
+                            Get weekly spiritual insights and blog updates delivered to your inbox.
+                        </p>
+                        <div class="space-y-3">
+                            <input type="email" placeholder="Your email address" 
+                                   class="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-amber-400 text-sm">
+                            <button class="w-full neon-btn !py-2 !text-sm">
+                                <i class="fas fa-envelope mr-2"></i>Subscribe
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Follow Us -->
+                    <div class="glass-card rounded-2xl p-6">
+                        <h3 class="text-xl font-bold mb-4 text-amber-400">Follow Us</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <a href="#" class="flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-blue-600 transition-all group">
+                                <i class="fab fa-facebook-f text-white group-hover:scale-110 transition-transform mr-2"></i>
+                                <span class="text-white text-sm">Facebook</span>
+                            </a>
+                            <a href="#" class="flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-pink-600 transition-all group">
+                                <i class="fab fa-instagram text-white group-hover:scale-110 transition-transform mr-2"></i>
+                                <span class="text-white text-sm">Instagram</span>
+                            </a>
+                            <a href="#" class="flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-red-600 transition-all group">
+                                <i class="fab fa-youtube text-white group-hover:scale-110 transition-transform mr-2"></i>
+                                <span class="text-white text-sm">YouTube</span>
+                            </a>
+                            <a href="#" class="flex items-center justify-center p-3 bg-white/10 rounded-lg hover:bg-blue-400 transition-all group">
+                                <i class="fab fa-twitter text-white group-hover:scale-110 transition-transform mr-2"></i>
+                                <span class="text-white text-sm">Twitter</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="glass py-16 mt-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12">
+                <!-- Logo & Mission -->
+                <div class="md:col-span-2">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl flex items-center justify-center mr-4 floating">
+                            <i class="fas fa-church text-white text-2xl"></i>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold font-display gradient-text">ANOINTED WORSHIP CENTER</div>
+                            <div class="text-amber-400 text-sm">Where Everyone is Someone</div>
+                        </div>
+                    </div>
+                    <p class="text-gray-300 mb-6 leading-relaxed">
+                        Sharing spiritual insights and encouragement through our blog to help you grow in your faith journey with Christ.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold font-display mb-6 text-amber-400">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-300 hover:text-amber-400 transition-colors">Home</a></li>
+                        <li><a href="events-news.html" class="text-gray-300 hover:text-amber-400 transition-colors">Events & News</a></li>
+                        <li><a href="ministries.html" class="text-gray-300 hover:text-amber-400 transition-colors">Ministries</a></li>
+                        <li><a href="awc-gallery.html" class="text-gray-300 hover:text-amber-400 transition-colors">Gallery</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold font-display mb-6 text-amber-400">Connect</h3>
+                    <div class="space-y-4 text-gray-300">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marker-alt text-amber-400 mr-3"></i>
+                            <span>556 Trapelo Rd Belmont, MA</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-phone text-amber-400 mr-3"></i>
+                            <span>(508) 933-1804</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-envelope text-amber-400 mr-3"></i>
+                            <span>info@anointedworshipcenter.com</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-white/20 mt-12 pt-8 text-center">
+                <p class="text-gray-400">
+                    &copy; 2025 Anointed Worship Center Blog - All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Panel (hidden by default) -->
+    <div id="adminPanel" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.98); z-index:2000; overflow:auto;">
+        <div class="max-w-3xl mx-auto mt-16 mb-8 bg-white/10 glass-card rounded-2xl p-8 text-white relative">
+            <button onclick="closeAdminPanel()" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-amber-400"><i class="fas fa-times"></i></button>
+            <h2 class="text-3xl font-bold mb-6 text-amber-400">Blog Admin Panel</h2>
+            <div id="adminPosts"></div>
+            <button onclick="addAdminPost()" class="neon-btn mt-6"><i class="fas fa-plus mr-2"></i>Add New Post</button>
+            <button onclick="saveAdminPosts()" class="neon-btn mt-6 ml-4"><i class="fas fa-save mr-2"></i>Save & Download posts.json</button>
+            <div id="adminStatus" class="mt-4 text-sm"></div>
+        </div>
+    </div>
+
+    <!-- Post Modal (hidden by default) -->
+    <div id="postModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(15,23,42,0.95); z-index:3000; overflow:auto;">
+        <div id="postModalContent" class="max-w-2xl mx-auto mt-16 mb-8 bg-white/10 glass-card rounded-2xl p-8 text-white relative shadow-2xl">
+            <button onclick="closePostModal()" class="absolute top-4 right-4 text-2xl text-gray-400 hover:text-amber-400" aria-label="Close"><i class="fas fa-times"></i></button>
+            <div id="postModalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentFilter = 'all';
+        let allPosts = [];
+        let currentPage = 1;
+        const postsPerPage = 5;
+
+        // Search functionality
+        function openSearch() {
+            document.getElementById('searchOverlay').classList.add('active');
+            document.getElementById('searchInput').focus();
+        }
+
+        function closeSearch() {
+            document.getElementById('searchOverlay').classList.remove('active');
+        }
+
+        // Close search with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeSearch();
+            }
+        });
+
+        // Blog post filtering
+        function filterPosts(category) {
+            currentFilter = category;
+            
+            // Update filter buttons
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                const btnCategory = btn.getAttribute('onclick').match(/'([^']+)'/)[1];
+                btn.classList.remove('active', 'text-amber-400', 'border-amber-400', 'bg-amber-400/10');
+                btn.classList.add('text-gray-300', 'border-gray-600', 'hover:border-amber-400', 'hover:text-amber-400');
+                if (btnCategory === category) {
+                    btn.classList.add('active', 'text-amber-400', 'border-amber-400', 'bg-amber-400/10');
+                }
+            });
+            
+            displayPage(1); // Reset to page 1 for the new filter
+        }
+
+        // Modal logic
+        function openPost(postId, useModal) {
+            if (useModal) {
+                showPostModal(postId);
+            } else {
+                window.location.href = `post.html?id=${encodeURIComponent(postId)}`;
+            }
+        }
+        async function showPostModal(postId) {
+            try {
+                const response = await fetch('posts.json?v=' + Date.now());
+                if (!response.ok) throw new Error('Failed to load posts.json');
+                const posts = await response.json();
+                const post = posts.find(p => p.id === postId);
+                if (!post) throw new Error('Post not found');
+                let html = '';
+                if (post.image) {
+                    html += `<img src='${post.image}' alt='${post.title}' class='w-full object-cover rounded-xl mb-6' style='max-height:20rem; background:#222;' loading='lazy'>`;
+                }
+                html += `<h2 class='text-3xl font-bold mb-2 text-amber-400'>${post.title}</h2>`;
+                html += `<div class='mb-4 text-gray-400 text-sm'>${post.date} &bull; <span class='category-${post.category} px-2 py-1 rounded'>${post.categoryLabel || post.category}</span></div>`;
+                html += `<div class='mb-6 text-lg text-white'>${post.excerpt}</div>`;
+                if (post.content) {
+                    html += `<div class='blog-content mb-6'>${post.content}</div>`;
+                }
+                html += `<div class='mt-8'><h3 class='text-xl font-bold mb-2 text-amber-400'>Comments</h3><div id='modalComments'></div><form id='modalCommentForm' class='mt-4'><input type='text' id='modalCommentName' placeholder='Your name' class='px-3 py-2 rounded bg-white/10 border border-white/20 text-white placeholder-gray-400 mb-2 w-full'><textarea id='modalCommentText' placeholder='Your comment' class='px-3 py-2 rounded bg-white/10 border border-white/20 text-white placeholder-gray-400 mb-2 w-full'></textarea><button type='submit' class='neon-btn !py-2 !text-sm mt-2'>Add Comment</button></form></div>`;
+                document.getElementById('postModalBody').innerHTML = html;
+                renderModalComments(postId);
+                document.getElementById('modalCommentForm').onsubmit = function(e) {
+                    e.preventDefault();
+                    addModalComment(postId);
+                };
+                document.getElementById('postModal').style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            } catch (err) {
+                document.getElementById('postModalBody').innerHTML = `<div class='text-red-400 p-6'>${err.message}</div>`;
+                document.getElementById('postModal').style.display = 'block';
+            }
+        }
+        function closePostModal() {
+            document.getElementById('postModal').style.display = 'none';
+            document.body.style.overflow = '';
+        }
+        // Close modal on overlay click or Escape
+        document.getElementById('postModal').addEventListener('click', function(e) {
+            if (e.target === this) closePostModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && document.getElementById('postModal').style.display === 'block') {
+                closePostModal();
+            }
+        });
+
+        function renderModalComments(postId) {
+            const comments = JSON.parse(localStorage.getItem('comments_' + postId) || '[]');
+            let html = '';
+            if (comments.length === 0) {
+                html = '<div class="text-gray-400 mb-2">No comments yet.</div>';
+            } else {
+                comments.forEach(c => {
+                    html += `<div class='mb-3 p-3 rounded bg-white/10 border border-white/10'><div class='font-bold text-amber-300 mb-1'>${c.name}</div><div class='text-gray-200'>${c.text}</div></div>`;
+                });
+            }
+            document.getElementById('modalComments').innerHTML = html;
+        }
+        function addModalComment(postId) {
+            const name = document.getElementById('modalCommentName').value.trim();
+            const text = document.getElementById('modalCommentText').value.trim();
+            if (!name || !text) return;
+            const comments = JSON.parse(localStorage.getItem('comments_' + postId) || '[]');
+            comments.push({ name, text });
+            localStorage.setItem('comments_' + postId, JSON.stringify(comments));
+            renderModalComments(postId);
+            document.getElementById('modalCommentForm').reset();
+        }
+
+        // Fetch and render blog posts from posts.json
+        async function loadBlogPosts() {
+            try {
+                const response = await fetch('posts.json?v=' + Date.now());
+                if (!response.ok) throw new Error('Failed to load posts.json');
+                allPosts = await response.json();
+                displayPage(1); // Initial display of page 1
+            } catch (err) {
+                document.getElementById('blogPosts').innerHTML = `<div class='text-red-400 p-6'>Error loading blog posts: ${err.message}</div>`;
+            }
+        }
+
+        function displayPage(page) {
+            currentPage = page;
+            let filteredPosts = allPosts;
+            if (currentFilter !== 'all') {
+                filteredPosts = allPosts.filter(post => post.category === currentFilter);
+            }
+
+            const startIndex = (currentPage - 1) * postsPerPage;
+            const endIndex = startIndex + postsPerPage;
+            const paginatedPosts = filteredPosts.slice(startIndex, endIndex);
+            
+            renderBlogPosts(paginatedPosts);
+            renderPagination(filteredPosts.length);
+        }
+
+        function renderBlogPosts(posts) {
+            const blogPostsDiv = document.getElementById('blogPosts');
+            if (!Array.isArray(posts) || posts.length === 0) {
+                blogPostsDiv.innerHTML = '<div class="text-gray-400 p-6">No blog posts found.</div>';
+                return;
+            }
+            let html = '';
+            posts.forEach(post => {
+                html += `
+                <article class="glass-card rounded-2xl p-4 md:p-6 hover-lift blog-post" data-category="${post.category}">
+                  <div class="flex blog-row items-center">
+                    <div class="flex-1 blog-content-col pr-0 md:pr-8">
+                        <div class="flex items-center justify-between mb-2 md:mb-4">
+                            <span class="category-${post.category} text-white px-3 py-1 rounded-full text-sm font-semibold">${post.categoryLabel || post.category}</span>
+                            <span class="text-gray-400 text-xs md:text-sm">${post.date}</span>
+                        </div>
+                        <h3 class="text-xl md:text-2xl font-bold mb-2 md:mb-3 text-white hover:text-amber-400 transition-colors cursor-pointer" onclick="openPost('${post.id}', true)">
+                            ${post.title}
+                        </h3>
+                        <p class="text-gray-300 mb-3 md:mb-4 leading-relaxed">
+                            ${post.excerpt}
+                        </p>
+                        <div class="flex flex-wrap gap-2 mb-3">
+                            <button onclick="openPost('${post.id}', true)" class="neon-btn !py-2 !px-4 !text-xs md:!text-sm">Quick View</button>
+                            <a href="post.html?id=${post.id}" class="neon-btn !py-2 !px-4 !text-xs md:!text-sm bg-blue-500 hover:bg-blue-600" style="background:linear-gradient(45deg,#3b82f6,#1d4ed8);color:white;" target="_blank">Read Full Post</a>
+                        </div>
+                        <div class="flex items-center justify-between mt-2">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-user text-white text-xs"></i>
+                                </div>
+                                <div>
+                                    <div class="text-amber-400 text-sm font-semibold">${post.author}</div>
+                                    <div class="text-gray-400 text-xs">${post.readTime || ''} ${post.comments ? `• ${post.comments} comments` : ''}</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-3">
+                                <button class="text-gray-400 hover:text-red-400 transition-colors">
+                                    <i class="fas fa-heart mr-1"></i>${post.likes || 0}
+                                </button>
+                                <button class="text-gray-400 hover:text-blue-400 transition-colors">
+                                    <i class="fas fa-share mr-1"></i>Share
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    ${post.image ? `<img src="${post.image}" alt="${post.title}" class="blog-image w-full md:w-auto object-cover rounded-xl ml-0 md:ml-8 mt-4 md:mt-0" style="max-height:10rem; min-height:6rem; background:#222;" loading="lazy">` : ''}
+                  </div>
+                </article>
+                `;
+            });
+            blogPostsDiv.innerHTML = html;
+        }
+
+        function renderPagination(totalItems) {
+            const paginationContainer = document.getElementById('paginationContainer');
+            paginationContainer.innerHTML = '';
+            const totalPages = Math.ceil(totalItems / postsPerPage);
+
+            if (totalPages <= 1) return;
+
+            let paginationHTML = '<div class="flex items-center space-x-2">';
+
+            paginationHTML += `
+                <button 
+                    onclick="displayPage(${currentPage - 1})" 
+                    class="pagination-btn glass-card px-4 py-2 rounded-lg text-gray-400 hover:text-amber-400 transition-all ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}"
+                    ${currentPage === 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left mr-2"></i>Previous
+                </button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                paginationHTML += `
+                    <button 
+                        onclick="displayPage(${i})" 
+                        class="pagination-btn glass-card px-4 py-2 rounded-lg font-semibold ${currentPage === i ? 'active' : 'text-gray-400 hover:text-amber-400 transition-all'}">
+                        ${i}
+                    </button>`;
+            }
+
+            paginationHTML += `
+                <button 
+                    onclick="displayPage(${currentPage + 1})" 
+                    class="pagination-btn glass-card px-4 py-2 rounded-lg text-gray-400 hover:text-amber-400 transition-all ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}"
+                    ${currentPage === totalPages ? 'disabled' : ''}>
+                    Next<i class="fas fa-chevron-right ml-2"></i>
+                </button>`;
+
+            paginationHTML += '</div>';
+            paginationContainer.innerHTML = paginationHTML;
+        }
+
+        // Initialize page on DOMContentLoaded
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBlogPosts();
+            // The initial filter selection is handled by the `active` class in the HTML
+        });
+
+        // --- Admin Panel Logic ---
+        const ADMIN_PASSWORD = 'awcblog2025'; // Change this to your secret password
+        let adminPostsData = [];
+        let adminAuthenticated = false;
+
+        function showAdminPanel() {
+            if (!adminAuthenticated) {
+                const pwd = prompt('Enter admin password:');
+                if (pwd !== ADMIN_PASSWORD) {
+                    alert('Incorrect password.');
+                    window.location.hash = '';
+                    return;
+                }
+                adminAuthenticated = true;
+            }
+            document.getElementById('adminPanel').style.display = 'block';
+            loadAdminPosts();
+        }
+        function closeAdminPanel() {
+            document.getElementById('adminPanel').style.display = 'none';
+            window.location.hash = '';
+        }
+        async function loadAdminPosts() {
+            try {
+                const response = await fetch('posts.json?v=' + Date.now());
+                if (!response.ok) throw new Error('Failed to load posts.json');
+                adminPostsData = await response.json();
+                renderAdminPosts();
+            } catch (err) {
+                document.getElementById('adminPosts').innerHTML = `<div class='text-red-400 p-4'>Error: ${err.message}</div>`;
+            }
+        }
+        function renderAdminPosts() {
+            let html = '<div class="mb-4 text-amber-300 text-xs">Image URL can be a local path (e.g. images/myphoto.jpg) or a full URL (https://...)</div>';
+            if (!Array.isArray(adminPostsData) || adminPostsData.length === 0) {
+                html += '<div class="text-gray-400 mb-4">No posts found.</div>';
+            } else {
+                adminPostsData.forEach((post, idx) => {
+                    html += `
+                    <div class='mb-6 p-4 rounded-xl bg-slate-900/60 border border-amber-400'>
+                        <div class='flex flex-wrap gap-4 mb-2'>
+                            <input class='px-2 py-1 rounded bg-white/10 text-white border border-white/20' style='min-width:180px' value="${post.title.replace(/"/g,'&quot;')}" onchange="updateAdminPost(${idx}, 'title', this.value)">
+                            <input class='px-2 py-1 rounded bg-white/10 text-white border border-white/20' style='min-width:120px' value="${post.author.replace(/"/g,'&quot;')}" onchange="updateAdminPost(${idx}, 'author', this.value)">
+                            <input class='px-2 py-1 rounded bg-white/10 text-white border border-white/20' style='min-width:120px' value="${post.date.replace(/"/g,'&quot;')}" onchange="updateAdminPost(${idx}, 'date', this.value)">
+                            <input class='px-2 py-1 rounded bg-white/10 text-white border border-white/20' style='min-width:100px' value="${post.category.replace(/"/g,'&quot;')}" onchange="updateAdminPost(${idx}, 'category', this.value)">
+                            <input class='px-2 py-1 rounded bg-white/10 text-white border border-white/20' style='min-width:120px' value="${post.categoryLabel ? post.categoryLabel.replace(/"/g,'&quot;') : ''}" onchange="updateAdminPost(${idx}, 'categoryLabel', this.value)">
+                        </div>
+                        ${post.image ? `<img src='${post.image.replace(/'/g,'&#39;')}' alt='Preview' style='max-height:100px; border-radius:0.5rem; margin-bottom:8px; background:#222;' onerror="this.style.display='none'">` : ''}
+                        <input class='w-full px-2 py-1 rounded bg-white/10 text-white border border-white/20 mb-2' placeholder='Image URL (optional)' value="${post.image ? post.image.replace(/"/g,'&quot;') : ''}" onchange="updateAdminPost(${idx}, 'image', this.value); renderAdminPosts();">
+                        <textarea class='w-full px-2 py-1 rounded bg-white/10 text-white border border-white/20 mb-2' rows='2' onchange="updateAdminPost(${idx}, 'excerpt', this.value)">${post.excerpt.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</textarea>
+                        <div class='mb-2'>
+                          <label class='block text-amber-300 text-xs mb-1'>Content (Rich Text):</label>
+                          <div id='quill-editor-${idx}' style='background:#181e29;'></div>
+                        </div>
+                        <div class='flex flex-wrap gap-4 mb-2'>
+                            <input class='px-2 py-1 rounded bg-white/10 text-white border border-white/20' type='number' min='0' value="${post.comments||0}" onchange="updateAdminPost(${idx}, 'comments', this.value)">
+                            <input class='px-2 py-1 rounded bg-white/10 text-white border border-white/20' type='number' min='0' value="${post.likes||0}" onchange="updateAdminPost(${idx}, 'likes', this.value)">
+                            <input class='px-2 py-1 rounded bg-white/10 text-white border border-white/20' style='min-width:100px' value="${post.readTime ? post.readTime.replace(/"/g,'&quot;') : ''}" onchange="updateAdminPost(${idx}, 'readTime', this.value)">
+                            <input class='px-2 py-1 rounded bg-white/10 text-white border border-white/20' style='min-width:100px' value="${post.id.replace(/"/g,'&quot;')}" onchange="updateAdminPost(${idx}, 'id', this.value)">
+                            <button onclick="deleteAdminPost(${idx})" class='text-red-400 hover:text-red-600 ml-2'><i class='fas fa-trash'></i> Delete</button>
+                        </div>
+                    </div>`;
+                });
+            }
+            document.getElementById('adminPosts').innerHTML = html;
+            // Initialize Quill editors for each post
+            setTimeout(() => {
+              if (window.Quill) {
+                adminPostsData.forEach((post, idx) => {
+                  const quillDiv = document.getElementById('quill-editor-' + idx);
+                  if (quillDiv && !quillDiv._quill) {
+                    const quill = new Quill(quillDiv, {
+                      theme: 'snow',
+                      modules: { toolbar: [
+                        [{ header: [1, 2, false] }],
+                        ['bold', 'italic', 'underline', 'blockquote'],
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        ['link', 'image'],
+                        ['clean']
+                      ] }
+                    });
+                    quill.root.innerHTML = post.content || '';
+                    quill.on('text-change', function() {
+                      updateAdminPost(idx, 'content', quill.root.innerHTML);
+                    });
+                    quillDiv._quill = quill;
+                  } else if (quillDiv && quillDiv._quill) {
+                    quillDiv._quill.root.innerHTML = post.content || '';
+                  }
+                });
+              }
+            }, 100);
+        }
+        function updateAdminPost(idx, field, value) {
+            if (field === 'comments' || field === 'likes') value = parseInt(value)||0;
+            adminPostsData[idx][field] = value;
+        }
+        function addAdminPost() {
+            adminPostsData.push({
+                id: 'new-post',
+                category: '',
+                categoryLabel: '',
+                title: '',
+                author: '',
+                date: '',
+                excerpt: '',
+                comments: 0,
+                likes: 0,
+                readTime: '',
+                image: ''
+            });
+            renderAdminPosts();
+        }
+        function deleteAdminPost(idx) {
+            if (confirm('Delete this post?')) {
+                adminPostsData.splice(idx, 1);
+                renderAdminPosts();
+            }
+        }
+        function saveAdminPosts() {
+            const dataStr = JSON.stringify(adminPostsData, null, 2);
+            const blob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'posts.json';
+            document.body.appendChild(a);
+            a.click();
+            setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            }, 100);
+            document.getElementById('adminStatus').textContent = 'posts.json downloaded. Replace the file on your server to update the blog.';
+        }
+        // Listen for hash change to show/hide admin panel
+        window.addEventListener('hashchange', function() {
+            if (window.location.hash === '#admin') {
+                showAdminPanel();
+            } else {
+                closeAdminPanel();
+            }
+        });
+        // Show admin panel if hash is already #admin
+        if (window.location.hash === '#admin') {
+            showAdminPanel();
+        }
+
+        // Hamburger menu logic
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const closeMobileMenuBtn = document.getElementById('closeMobileMenu');
+        function openMobileMenu() {
+            mobileMenu.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMobileMenu() {
+            mobileMenu.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+        mobileMenuBtn.addEventListener('click', openMobileMenu);
+        closeMobileMenuBtn.addEventListener('click', closeMobileMenu);
+        // Close menu on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mobileMenu.style.display === 'block') {
+                closeMobileMenu();
+            }
+        });
+    </script>
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+</body>
+</html>
