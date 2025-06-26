@@ -3,13 +3,11 @@
   "version": "1.0.0",
   "description": "Backend server for Anointed Worship Center Blog with comment system",
   "main": "server.js",
-  {
   "scripts": {
     "start": "node server.js",
-    "build": "npm rebuild sqlite3",
-    "postinstall": "npm rebuild sqlite3"
-  }
-}
+    "build": "npm rebuild better-sqlite3",
+    "postinstall": "npm rebuild better-sqlite3"
+  },
   "keywords": [
     "blog",
     "church",
@@ -31,14 +29,6 @@
     "nodemon": "^3.0.2"
   },
   "engines": {
-    "node": ">=14.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/awc/blog-backend.git"
-  },
-  "homepage": "https://anointedworshipcenter.com/blog",
-  "bugs": {
-    "url": "https://github.com/awc/blog-backend/issues"
+    "node": ">=18.0.0"
   }
 }
