@@ -353,6 +353,236 @@ app.get('/api/stats', (req, res) => {
 console.log('✅ Comments and Admin endpoints ready!');
 // ===== END COMMENTS & ADMIN ENDPOINTS =====
 
+// ADD THESE TESTIMONIAL ENDPOINTS TO YOUR EXISTING server.js FILE
+// (Add after your existing comments endpoints but before app.listen())
+
+// ===== TESTIMONIAL SYSTEM =====
+console.log('🙌 Setting up Testimonial endpoints...');
+
+// Testimonials storage (in-memory)
+let testimonials = [
+    {
+        id: '1',
+        name: 'Sarah M.',
+        testimony: 'God answered my prayer for my father\'s healing! After months of treatment, the doctors said his cancer is in complete remission. Truly a miracle!',
+        anonymous: false,
+        approved: true,
+        created_at: new Date().toISOString(),
+        approved_at: new Date().toISOString()
+    },
+    {
+        id: '2',
+        name: 'Anonymous',
+        testimony: 'I was struggling with addiction for years. Through prayer and this church family, God gave me strength to overcome. 6 months clean and grateful!',
+        anonymous: true,
+        approved: true,
+        created_at: new Date(Date.now() - 24*60*60*1000).toISOString(), // 1 day ago
+        approved_at: new Date(Date.now() - 12*60*60*1000).toISOString()
+    }
+];
+
+let nextTestimonialId = 3;
+
+// Helper function to check if submission window is open
+function isTestimonialSubmissionOpen() {
+    const now = new Date();
+    const dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, etc.
+    const hour = now.getHours();
+    
+    // Submission window: Tuesday 12:00 PM to Friday 11:59 PM
+    return (dayOfWeek >= 2 && dayOfWeek <= 5) || 
+           (dayOfWeek === 2 && hour >= 12) || 
+           (dayOfWeek === 5 && hour <= 23);
+}
+
+// GET all testimonials (public sees only approved, admin sees all)
+app.get('/api/testimonials', (req, res) => {
+    console.log('🙌 Getting testimonials...');
+    try {
+        // For now, return all testimonials (frontend will filter approved ones for public)
+        // In production, you might want to add authentication to determine admin vs public
+        const sortedTestimonials = testimonials.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        
+        res.json({
+            success: true,
+            testimonials: sortedTestimonials,
+            total: testimonials.length,
+            submissionWindowOpen: isTestimonialSubmissionOpen()
+        });
+        
+        console.log(`✅ Sent ${sortedTestimonials.length} testimonials`);
+    } catch (error) {
+        console.error('❌ Error fetching testimonials:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch testimonials' });
+    }
+});
+
+// POST new testimonial (only during submission window)
+app.post('/api/testimonials', (req, res) => {
+    console.log('🙌 Creating testimonial:', req.body);
+    try {
+        // Check if submission window is open
+        if (!isTestimonialSubmissionOpen()) {
+            return res.status(403).json({ 
+                success: false, 
+                error: 'Testimonial submission is currently closed. Submission window: Tuesday 12:00 PM - Friday 11:59 PM' 
+            });
+        }
+        
+        // Validate input
+        if (!req.body.testimony || req.body.testimony.trim() === '') {
+            return res.status(400).json({ success: false, error: 'Testimony content required' });
+        }
+        
+        if (req.body.testimony.length > 2000) {
+            return res.status(400).json({ success: false, error: 'Testimony must be less than 2000 characters' });
+        }
+        
+        if (!req.body.anonymous && (!req.body.name || req.body.name.trim() === '')) {
+            return res.status(400).json({ success: false, error: 'Name required when not submitting anonymously' });
+        }
+        
+        // Create new testimonial (pending approval)
+        const testimonial = {
+            id: String(nextTestimonialId++),
+            name: req.body.anonymous ? 'Anonymous' : req.body.name.trim(),
+            testimony: req.body.testimony.trim(),
+            anonymous: Boolean(req.body.anonymous),
+            approved: false, // Requires pastoral approval
+            created_at: new Date().toISOString(),
+            approved_at: null
+        };
+        
+        testimonials.push(testimonial);
+        
+        console.log(`✅ Testimonial submitted by ${testimonial.name} for review`);
+        
+        res.status(201).json({ 
+            success: true, 
+            testimonial: testimonial,
+            message: 'Testimony submitted for pastoral review' 
+        });
+    } catch (error) {
+        console.error('❌ Error creating testimonial:', error);
+        res.status(500).json({ success: false, error: 'Failed to create testimonial' });
+    }
+});
+
+// POST approve testimonial (admin only)
+app.post('/api/testimonials/:id/approve', (req, res) => {
+    console.log('✅ Approving testimonial:', req.params.id);
+    try {
+        const testimonialId = req.params.id;
+        const testimonial = testimonials.find(t => t.id === testimonialId);
+        
+        if (!testimonial) {
+            return res.status(404).json({ success: false, error: 'Testimonial not found' });
+        }
+        
+        if (testimonial.approved) {
+            return res.status(400).json({ success: false, error: 'Testimonial already approved' });
+        }
+        
+        // Approve testimonial
+        testimonial.approved = true;
+        testimonial.approved_at = new Date().toISOString();
+        
+        console.log(`✅ Testimonial ${testimonialId} approved for Sunday service`);
+        
+        res.json({ 
+            success: true, 
+            testimonial: testimonial,
+            message: 'Testimonial approved for Sunday service' 
+        });
+    } catch (error) {
+        console.error('❌ Error approving testimonial:', error);
+        res.status(500).json({ success: false, error: 'Failed to approve testimonial' });
+    }
+});
+
+// DELETE testimonial (admin only)
+app.delete('/api/testimonials/:id', (req, res) => {
+    console.log('🗑️ Deleting testimonial:', req.params.id);
+    try {
+        const testimonialId = req.params.id;
+        const testimonialIndex = testimonials.findIndex(t => t.id === testimonialId);
+        
+        if (testimonialIndex === -1) {
+            return res.status(404).json({ success: false, error: 'Testimonial not found' });
+        }
+        
+        // Remove the testimonial
+        testimonials.splice(testimonialIndex, 1);
+        
+        console.log(`✅ Testimonial ${testimonialId} deleted`);
+        
+        res.json({ success: true, message: 'Testimonial deleted successfully' });
+    } catch (error) {
+        console.error('❌ Error deleting testimonial:', error);
+        res.status(500).json({ success: false, error: 'Failed to delete testimonial' });
+    }
+});
+
+// GET testimonial submission status
+app.get('/api/testimonials/status', (req, res) => {
+    console.log('📅 Checking testimonial submission status');
+    try {
+        const isOpen = isTestimonialSubmissionOpen();
+        const now = new Date();
+        
+        // Calculate next submission window
+        let nextSubmission = new Date();
+        const dayOfWeek = now.getDay();
+        const hour = now.getHours();
+        
+        if (dayOfWeek === 0 || dayOfWeek === 1 || (dayOfWeek === 2 && hour < 12)) {
+            // Next Tuesday 12 PM
+            nextSubmission.setDate(now.getDate() + ((2 + 7 - dayOfWeek) % 7));
+            nextSubmission.setHours(12, 0, 0, 0);
+        } else if (!isOpen) {
+            // Next Tuesday 12 PM (next week)
+            nextSubmission.setDate(now.getDate() + (7 - dayOfWeek + 2));
+            nextSubmission.setHours(12, 0, 0, 0);
+        }
+        
+        res.json({
+            success: true,
+            submissionOpen: isOpen,
+            nextSubmissionWindow: nextSubmission.toISOString(),
+            currentTime: now.toISOString()
+        });
+        
+        console.log(`✅ Submission window ${isOpen ? 'OPEN' : 'CLOSED'}`);
+    } catch (error) {
+        console.error('❌ Error checking testimonial status:', error);
+        res.status(500).json({ success: false, error: 'Failed to check status' });
+    }
+});
+
+// GET pending testimonials count (admin dashboard helper)
+app.get('/api/admin/testimonials/pending', (req, res) => {
+    console.log('👨‍💼 Admin: Getting pending testimonials count');
+    try {
+        const pendingCount = testimonials.filter(t => !t.approved).length;
+        const approvedCount = testimonials.filter(t => t.approved).length;
+        
+        res.json({
+            success: true,
+            pending: pendingCount,
+            approved: approvedCount,
+            total: testimonials.length
+        });
+        
+        console.log(`✅ Pending: ${pendingCount}, Approved: ${approvedCount}`);
+    } catch (error) {
+        console.error('❌ Error fetching testimonial counts:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch counts' });
+    }
+});
+
+console.log('✅ Testimonial endpoints ready!');
+// ===== END TESTIMONIAL SYSTEM =====
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
