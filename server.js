@@ -10,6 +10,8 @@ app.use(cors({
     origin: [
         'https://www.claudeusercontent.com',
         'https://claudeusercontent.com',
+        'https://biblefunland.com',        // ← ADD THIS
+        'https://www.biblefunland.com',    // ← ADD THIS  
         'http://localhost:3000'
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
