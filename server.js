@@ -6,7 +6,16 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: [
+        'https://www.claudeusercontent.com',
+        'https://claudeusercontent.com',
+        'http://localhost:3000'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true
+}));
 app.use(express.static('public'));
 
 // Simple in-memory comments storage (for now)
