@@ -162,6 +162,197 @@ app.post('/api/prayers/:id/heart', (req, res) => {
 console.log('✅ Prayer Wall endpoints ready!');
 // ===== END PRAYER WALL ENDPOINTS =====
 
+// ADD THESE ENDPOINTS TO YOUR EXISTING server.js FILE
+// (Add after your existing prayer endpoints but before app.listen())
+
+// ===== COMMENTS SYSTEM =====
+console.log('💬 Setting up Comments endpoints...');
+
+// Comments storage (in-memory - organized by prayer ID)
+let prayerComments = {};
+let nextCommentId = 1;
+
+// GET comments for a specific prayer
+app.get('/api/prayers/:id/comments', (req, res) => {
+    console.log('💬 Getting comments for prayer:', req.params.id);
+    try {
+        const prayerId = req.params.id;
+        const comments = prayerComments[prayerId] || [];
+        
+        // Sort by most recent first
+        const sortedComments = comments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        
+        res.json({
+            success: true,
+            comments: sortedComments,
+            total: comments.length
+        });
+        
+        console.log(`✅ Sent ${comments.length} comments for prayer ${prayerId}`);
+    } catch (error) {
+        console.error('❌ Error fetching comments:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch comments' });
+    }
+});
+
+// POST new comment for a specific prayer
+app.post('/api/prayers/:id/comments', (req, res) => {
+    console.log('💬 Adding comment to prayer:', req.params.id, req.body);
+    try {
+        const prayerId = req.params.id;
+        
+        // Validate input
+        if (!req.body.content || req.body.content.trim() === '') {
+            return res.status(400).json({ success: false, error: 'Comment content required' });
+        }
+        
+        // Check if prayer exists
+        const prayer = prayers.find(p => p.id === prayerId);
+        if (!prayer) {
+            return res.status(404).json({ success: false, error: 'Prayer not found' });
+        }
+        
+        // Create new comment
+        const comment = {
+            id: String(nextCommentId++),
+            author_name: req.body.anonymous ? 'Anonymous' : (req.body.author_name || 'Anonymous'),
+            content: req.body.content.trim(),
+            created_at: new Date().toISOString(),
+            anonymous: Boolean(req.body.anonymous),
+            prayer_id: prayerId
+        };
+        
+        // Initialize comments array for this prayer if it doesn't exist
+        if (!prayerComments[prayerId]) {
+            prayerComments[prayerId] = [];
+        }
+        
+        prayerComments[prayerId].push(comment);
+        
+        console.log(`✅ Comment added by ${comment.author_name} to prayer ${prayerId}`);
+        
+        res.status(201).json({ success: true, comment: comment });
+    } catch (error) {
+        console.error('❌ Error creating comment:', error);
+        res.status(500).json({ success: false, error: 'Failed to create comment' });
+    }
+});
+
+// DELETE a specific comment (admin only)
+app.delete('/api/comments/:id', (req, res) => {
+    console.log('🗑️ Deleting comment:', req.params.id);
+    try {
+        const commentId = req.params.id;
+        let found = false;
+        let prayerId = null;
+        
+        // Find and remove the comment from the appropriate prayer
+        Object.keys(prayerComments).forEach(pid => {
+            const commentIndex = prayerComments[pid].findIndex(c => c.id === commentId);
+            if (commentIndex !== -1) {
+                prayerComments[pid].splice(commentIndex, 1);
+                found = true;
+                prayerId = pid;
+            }
+        });
+        
+        if (!found) {
+            return res.status(404).json({ success: false, error: 'Comment not found' });
+        }
+        
+        console.log(`✅ Comment ${commentId} deleted from prayer ${prayerId}`);
+        
+        res.json({ success: true, message: 'Comment deleted successfully' });
+    } catch (error) {
+        console.error('❌ Error deleting comment:', error);
+        res.status(500).json({ success: false, error: 'Failed to delete comment' });
+    }
+});
+
+// DELETE a specific prayer (admin only)
+app.delete('/api/prayers/:id', (req, res) => {
+    console.log('🗑️ Deleting prayer:', req.params.id);
+    try {
+        const prayerId = req.params.id;
+        const prayerIndex = prayers.findIndex(p => p.id === prayerId);
+        
+        if (prayerIndex === -1) {
+            return res.status(404).json({ success: false, error: 'Prayer not found' });
+        }
+        
+        // Remove the prayer
+        prayers.splice(prayerIndex, 1);
+        
+        // Remove all comments for this prayer
+        delete prayerComments[prayerId];
+        
+        console.log(`✅ Prayer ${prayerId} and its comments deleted`);
+        
+        res.json({ success: true, message: 'Prayer deleted successfully' });
+    } catch (error) {
+        console.error('❌ Error deleting prayer:', error);
+        res.status(500).json({ success: false, error: 'Failed to delete prayer' });
+    }
+});
+
+// GET all comments across all prayers (admin endpoint)
+app.get('/api/admin/comments', (req, res) => {
+    console.log('👨‍💼 Admin: Getting all comments');
+    try {
+        const allComments = [];
+        
+        Object.keys(prayerComments).forEach(prayerId => {
+            prayerComments[prayerId].forEach(comment => {
+                allComments.push({
+                    ...comment,
+                    prayer_id: prayerId
+                });
+            });
+        });
+        
+        // Sort by most recent first
+        const sortedComments = allComments.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+        
+        res.json({
+            success: true,
+            comments: sortedComments,
+            total: allComments.length
+        });
+        
+        console.log(`✅ Sent ${allComments.length} total comments to admin`);
+    } catch (error) {
+        console.error('❌ Error fetching admin comments:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch comments' });
+    }
+});
+
+// GET statistics (prayers, comments, hearts)
+app.get('/api/stats', (req, res) => {
+    console.log('📊 Getting statistics');
+    try {
+        const totalPrayers = prayers.length;
+        const totalHearts = prayers.reduce((sum, prayer) => sum + (prayer.hearts || 0), 0);
+        const totalComments = Object.values(prayerComments).reduce((sum, comments) => sum + comments.length, 0);
+        
+        res.json({
+            success: true,
+            stats: {
+                totalPrayers,
+                totalHearts,
+                totalComments
+            }
+        });
+        
+        console.log(`✅ Stats: ${totalPrayers} prayers, ${totalHearts} hearts, ${totalComments} comments`);
+    } catch (error) {
+        console.error('❌ Error fetching stats:', error);
+        res.status(500).json({ success: false, error: 'Failed to fetch statistics' });
+    }
+});
+
+console.log('✅ Comments and Admin endpoints ready!');
+// ===== END COMMENTS & ADMIN ENDPOINTS =====
+
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });
