@@ -7,13 +7,30 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors({
-    origin: [
-        'https://www.claudeusercontent.com',
-        'https://claudeusercontent.com',
-        'https://biblefunland.com',        // ← ADD THIS
-        'https://www.biblefunland.com',    // ← ADD THIS  
-        'http://localhost:3000'
-    ],
+    origin: function (origin, callback) {
+        // Allow requests with no origin (mobile apps, etc.)
+        if (!origin) return callback(null, true);
+        
+        // List of allowed domains
+        const allowedDomains = [
+            'claudeusercontent.com',
+            'biblefunland.com', 
+            'anointedworshipcenter.com',
+            'localhost'
+        ];
+        
+        // Check if the origin domain is allowed
+        const isAllowed = allowedDomains.some(domain => 
+            origin.includes(domain)
+        );
+        
+        if (isAllowed) {
+            callback(null, true);
+        } else {
+            console.log('Blocked origin:', origin);
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true
